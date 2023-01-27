@@ -1,17 +1,20 @@
 version: '3.8'
 
 services:
-  mongodb:
-      image: mongo
-      container_name: dabase_mongo
+  database:
+      image: mongo:latest
+      container_name: dabase_mongo_db
       restart: always
       ports:
-      - 27017:27017
-       environment:
+         - 27017:27017
+      environment:
          MONGO_INITDB_ROOT_USERNAME: root
          MONGO_INITDB_ROOT_PASSWORD: example
+         MONGO_INITDB_DATABASE: mongo_db 
       volumes:
-      - mdabase_mongo:/data/db
+      - mgdata:/data/mongo
 
 volumes:
-  dabase_mongo_data:
+  mgdata:
+    driver: local
+ 
