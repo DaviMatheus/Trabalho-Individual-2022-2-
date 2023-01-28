@@ -11,4 +11,3 @@ COPY requirements.txt .
 CMD ["python", "src/main.py"]
 
 RUN python src/main.py
-
