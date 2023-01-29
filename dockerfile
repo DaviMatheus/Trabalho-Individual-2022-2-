@@ -1,3 +1,4 @@
+
 FROM python:3.8
 
 COPY requirements.txt .
@@ -10,4 +11,4 @@ COPY requirements.txt .
 
 CMD ["python", "src/main.py"]
 
-RUN python src/main.py
+#RUN python src/main.py

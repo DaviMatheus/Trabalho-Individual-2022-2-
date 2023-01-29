@@ -1,36 +1,42 @@
 version: '3.8'
 
 services:
-  database:
-      image: mongo:latest
-      container_name: dabase_mongo_db
-      restart: always
-      ports:
-         - 27017:27017
-      environment:
-         MONGO_INITDB_ROOT_USERNAME: root
-         MONGO_INITDB_ROOT_PASSWORD: example
-         MONGO_INITDB_DATABASE: mongo_db 
-      volumes:
-      - mgdata:/data/mongo
 
+  database:
+    image: mongo:latest
+    container_name: mongo_metabase
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: lappis
+      MONGO_INITDB_ROOT_PASSWORD: lappis
+      MONGO_INITDB_DATABASE: metabase 
 
   aplication:
-      image: python:3.8
-      build: .
-      container_name: python_app
-      command: python src/main.py
-      command: tail -f /dev/null
-      ports: 
-         - 5000:5000
-      volumes:
-         - .:/app
-      links: 
-         - database
-      depends_on:
-         - database
-      
+    container_name: python_app
+    image: python:3.8
+    build:
+      context: .
+      dockerfile: dockerfile
+    command: python src/main.py 
+    command:  tail -f /dev/null
+    volumes:
+      - .:/app
+    ports:
+      - 5000:5000
+    depends_on:
+      - database
+    links:
+      - database
 
-volumes:
-  mgdata:
-    driver: local
+  meta:
+    image: metabase/metabase:latest
+    container_name: metabase
+    restart: always
+    depends_on:
+      - database
+    volumes:
+      - .:/metabase
+    ports:
+      - "3000:3000"
