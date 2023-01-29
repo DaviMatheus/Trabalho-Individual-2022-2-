@@ -9,6 +9,7 @@ contain the root `toctree` directive.</comment>
     <section ids="welcome-to-gces-documentation-s-documentation" names="welcome\ to\ gces_documentation's\ documentation!">
         <title>Welcome to GCES_Documentation’s documentation!</title>
         <compound classes="toctree-wrapper">
+            <compact_paragraph toctree="True"><title>Contents:</title><bullet_list><list_item classes="toctree-l1"><compact_paragraph classes="toctree-l1"><reference anchorname="" internal="True" refuri="modules">src</reference></compact_paragraph><bullet_list><list_item classes="toctree-l2"><compact_paragraph classes="toctree-l2"><reference anchorname="" internal="True" refuri="data_pipeline">data_pipeline package</reference></compact_paragraph></list_item><list_item classes="toctree-l2"><compact_paragraph classes="toctree-l2"><reference anchorname="" internal="True" refuri="main">main module</reference></compact_paragraph></list_item><list_item classes="toctree-l2"><compact_paragraph classes="toctree-l2"><reference anchorname="" internal="True" refuri="parser">parser package</reference></compact_paragraph></list_item></bullet_list></list_item></bullet_list></compact_paragraph>
         </compound>
     </section>
     <section ids="indices-and-tables" names="indices\ and\ tables">
