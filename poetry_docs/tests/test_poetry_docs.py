@@ -1,4 +1,4 @@
-from gerencia_gces_poetry import __version__
+from poetry_docs import __version__
 
 
 def test_version():
