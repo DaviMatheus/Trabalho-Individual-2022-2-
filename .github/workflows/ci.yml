@@ -8,19 +8,27 @@ on:
     branches:
       - main
   workflow_dispatch:
+  
+permissions:
+  contents: read
+
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      
+      - name: Install python and pip
+      - uses: actions/setup-python@v4
         with:
-          python-version: 3.x
+          python-version: '3.8'
       - name: Install dependencies 
         run: |
-          python -m pip install --upgrade pip
-          pip install flake8
+          python3 -m pip install --upgrade pip
+          pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with flake8
         run: |
@@ -28,3 +36,33 @@ jobs:
           flake8 --extend-ignore=E302,E101,E131,W191,W293,W292,W291 --count --max-complexity=10 --max-line-length=226 --exclude=*.pyc,*migrations* --statistics 
       - name: Create test environment
         run: docker-compose up -d --build
+        
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Update toml
+      run: |
+        version=$(date +%Y%m%d%H%M%S)
+        sed -i "s/^version.*/version = \"$version\"/" pyproject.toml
+        
+    - name: Install python and pip
+    - uses: actions/setup-python@v4
+      with:
+          python-version: '3.8'
+          
+    - name: Upgrade pip
+      run: pip install --upgrade pip
+          
+    - name: install poetry
+      run: |
+        python -m pip install poetry
+        
+    - name: Config poetry
+      run: poetry config http-basic.pypi ${{ secrets.PYPI_USER }} ${{ secrets.PYPI_PASSWORD }}
+
+    - name: Deploy to PYPI
+      run: |
+        poetry build
+        poetry publish
