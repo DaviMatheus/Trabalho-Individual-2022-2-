@@ -1,4 +1,4 @@
-name: CI
+name: CI and CD
 
 on:
   pull_request:
@@ -62,7 +62,8 @@ jobs:
         
     - name: Doxygen 
       run: doxygen dconfig
-    
+      continue-on-error: true
+
     - name: Sphinx
       working-directory: ./sphinxdocs
       run: make html
