@@ -57,14 +57,14 @@ jobs:
         pip install sphinx
         pip install sphinx-rtd-theme
         pip install breathe
+        sudo apt install doxygen
 
         
     - name: Doxygen 
-      run: |
-       sudo apt-get install -y doxygen
-       doxygen Doxyfile
-       continue-on-error: true
+      run: doxygen dconfig
 
+      continue-on-error: true
+      
     - name: Sphinx
       working-directory: ./sphinxdocs
       run: make html
