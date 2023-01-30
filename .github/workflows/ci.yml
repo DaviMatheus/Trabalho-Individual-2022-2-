@@ -93,8 +93,9 @@ jobs:
       run: curl -sSL https://install.python-poetry.org | python3 - --git https://github.com/python-poetry/poetry.git@master
 
     - name: Config poetry
-      env:
-        PYPI_PASSWORD: ${{secrets.PYPI_TOKEN_USERNAME}}
-        PYPI_USERNAME: ${{secrets.PYPI_TOKEN_PASSWORD}}
+      run: poetry config http-basic.pypi ${{ secrets.PYPI_TOKEN_USERNAME }} ${{ secrets.PYPI_TOKEN_PASSWORD }}
+
+    - name: Build and Publish
       run: |
-        poetry publish --build -u $PYPI_USERNAME -p $PYPI_PASSWORD
+        poetry build
+        poetry publish
