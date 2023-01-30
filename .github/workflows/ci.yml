@@ -54,15 +54,16 @@ jobs:
         
     - name: Install dependencies 
       run: |
-        sudo apt install doxygen
         pip install sphinx
         pip install sphinx-rtd-theme
         pip install breathe
 
         
     - name: Doxygen 
-      run: doxygen dconfig
-      continue-on-error: true
+      run: |
+       sudo apt-get install -y doxygen
+       doxygen Doxyfile
+       continue-on-error: true
 
     - name: Sphinx
       working-directory: ./sphinxdocs
