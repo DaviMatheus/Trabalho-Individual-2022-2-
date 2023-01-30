@@ -26,6 +26,7 @@ jobs:
         run: |
           flake8 --extend-ignore=E302,E101,E131,W191,W293,W292,W291 --count --select=E9,F63,F7,F82 --exclude=*.pyc,*migrations* --show-source --statistics
           flake8 --extend-ignore=E302,E101,E131,W191,W293,W292,W291 --count --max-complexity=10 --max-line-length=226 --exclude=*.pyc,*migrations* --statistics 
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test
         working-directory: ./tests
         run: |
