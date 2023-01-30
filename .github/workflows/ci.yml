@@ -44,3 +44,25 @@ jobs:
           pip install pytest
           pytest --cov
         continue-on-error: true
+        
+  authomatization:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+        
+    - name: Install dependencies 
+      run: |
+        sudo apt install doxygen
+        pip install sphinx
+        pip install sphinx-rtd-theme
+        pip install breathe
+
+        
+    - name: Doxygen 
+      run: doxygen dconfig
+    
+    - name: Sphinx
+      working-directory: ./sphinxdocs
+      run: make html
