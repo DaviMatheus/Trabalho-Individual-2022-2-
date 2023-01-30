@@ -59,13 +59,7 @@ jobs:
         pip install breathe
         sudo apt install doxygen
 
-        
-    - name: Doxygen 
-      run: doxygen dconfig
-
-      continue-on-error: true
-      
-    - name: Sphinx
+    - name: Generate Documentation
       working-directory: ./sphinxdocs
       run: make html
 
