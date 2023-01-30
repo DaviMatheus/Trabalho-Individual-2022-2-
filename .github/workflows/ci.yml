@@ -92,10 +92,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install poetry
         poetry install
-        
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
-    
+            
     - name: Config poetry
       env:
         POETRY_PASSWORD: ${{secrets.PYPI_TOKEN_USERNAME}}
